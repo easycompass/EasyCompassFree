@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.namdin.easycompass.R;
 import com.namdin.easycompass.base.BaseActivity;
@@ -244,7 +245,7 @@ public class MapsActivity extends BaseActivity<MapsPresenter> implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation()");
-        Task<Location> locationResult = mFusedLocationClient.getLastLocation();
+        /*Task<Location> locationResult = mFusedLocationClient.getLastLocation();
         locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
@@ -256,7 +257,17 @@ public class MapsActivity extends BaseActivity<MapsPresenter> implements OnMapRe
                 } else {
                     Log.d(TAG, "Current location is null. Using defaults.");
                     Log.e(TAG, "Exception: %s", task.getException());
-                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                }
+            }
+        });*/
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location!=null){
+                    mLastKnownLocation = location;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(mLastKnownLocation.getLatitude(),
+                                    mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                 }
             }
         });

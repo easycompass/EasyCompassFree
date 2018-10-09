@@ -32,12 +32,11 @@
     <string name="address_networks_gps_20_m">NetWorks GPS ±20 m</string>
     <string name="calibrate_low">Low</string>
     <string name="compass_my_location">My Location</string>
-    <string name="compass_32_05">32.05</string>
-    <string name="compass_21_03">21.03</string>
     <string name="compass_direction_dn">ES</string>
     <string name="title_dialog_policy_app">Policy</string>
     <string name="button_agree">I Agree</string>
     <string name="button_exit">Exit</string>
     <string name="message_dialog_policy_app">Privacy Policy: Location permission is required for geotagging, but it only serves the purpose of using the application. The information that we request will be retained on your device and is not collected by us in any way.</string>
     <string name="button_onlie_help">Online Help</string>
+    <string name="location_lat_long">.....</string>
 </resources>
