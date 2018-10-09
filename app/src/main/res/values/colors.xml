@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#312323</color>
+    <color name="colorPrimaryDark">#2c2121</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_main_background">#101010</color>
+    <color name="color_text_compass">#F4F4F4</color>
+    <color name="colorPrimaryWhite">#F4F4F4</color>
+    <color name="color_around_compass_map">#FF000000</color>
+    <color name="color_warning_calibrate">#f9e536</color>
+    <color name="color_calibrate_low">#ec4a25</color>
+    <color name="color_calibrate_medium">#e2bc23</color>
+    <color name="ic_launcher_background">#CF4A21</color>
+    <color name="background_icon_on_map">#ffffff</color>
+    <color name="background_icon_on_map_focus">#bebcbc</color>
+</resources>

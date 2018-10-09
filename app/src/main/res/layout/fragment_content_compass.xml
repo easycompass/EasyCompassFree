@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <com.namdin.easycompass.view.DirectionImage
+        android:id="@+id/iv_compass"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/margin_top_image_direction"
+        android:src="@mipmap/compass_white"
+        app:layout_constraintBottom_toTopOf="@+id/iv_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_degrees_direction" />
+
+    <ImageButton
+        android:id="@+id/iv_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_top_settings_maps"
+        android:background="@drawable/background_click_button"
+        android:padding="8dp"
+        android:tint="@color/colorPrimaryWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_map" />
+
+    <ImageButton
+        android:id="@+id/iv_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_top_settings_maps"
+        android:background="@drawable/background_click_button"
+        android:padding="8dp"
+        android:tint="@color/colorPrimaryWhite"
+        app:layout_constraintEnd_toStartOf="@+id/iv_map"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings_gray" />
+
+    <TextView
+        android:id="@+id/tv_location_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_text_location_name"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/compass_my_location"
+        android:textColor="@color/color_text_compass"
+        android:textSize="@dimen/text_title_city_h6"
+        app:layout_constraintBottom_toTopOf="@+id/tv_longitude"
+        app:layout_constraintEnd_toStartOf="@+id/iv_warning"
+        app:layout_constraintStart_toEndOf="@+id/iv_star_rate" />
+
+    <TextView
+        android:id="@+id/tv_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_end_latitude"
+        android:text="@string/compass_32_05"
+        android:textColor="@color/color_text_compass"
+        android:textSize="@dimen/text_longitude_and_latitude_h4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_longitude"
+        app:layout_constraintEnd_toStartOf="@+id/tv_longitude"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/iv_star_rate" />
+
+    <TextView
+        android:id="@+id/tv_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_text_lat_long"
+        android:layout_marginStart="@dimen/margin_start_longitude"
+        android:text="@string/compass_21_03"
+        android:textColor="@color/color_text_compass"
+        android:textSize="@dimen/text_longitude_and_latitude_h4"
+        app:layout_constraintBottom_toTopOf="@+id/ads_banner_home"
+        app:layout_constraintEnd_toStartOf="@+id/iv_warning"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_latitude" />
+
+    <TextView
+        android:id="@+id/tv_degrees_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/compass_direction_dn"
+        android:textColor="@color/color_text_compass"
+        android:textSize="@dimen/text_title_city_h6"
+        app:layout_constraintBottom_toTopOf="@+id/iv_compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_map"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageButton
+        android:id="@+id/iv_star_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_image_star_warning"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/background_click_button"
+        android:padding="8dp"
+        android:tint="@color/color_warning_calibrate"
+        app:layout_constraintBottom_toTopOf="@+id/ads_banner_home"
+        app:layout_constraintEnd_toStartOf="@+id/iv_warning"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_star_gray" />
+
+    <ImageButton
+        android:id="@+id/iv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/background_click_button"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/iv_warning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_location_address" />
+
+    <ImageButton
+        android:id="@+id/iv_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_image_star_warning"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_click_button"
+        android:padding="8dp"
+        android:tint="@color/color_warning_calibrate"
+        app:layout_constraintBottom_toTopOf="@+id/ads_banner_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_star_rate"
+        app:srcCompat="@drawable/ic_warning_gray" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_compass"
+        app:layout_constraintStart_toStartOf="@+id/iv_compass"
+        app:layout_constraintTop_toTopOf="@+id/iv_compass"
+        app:srcCompat="@mipmap/line_degrees" />
+
+    <com.google.android.gms.ads.NativeExpressAdView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ads_banner_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-8167507850220592/1491609793"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

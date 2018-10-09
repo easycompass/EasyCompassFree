@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_title_city_h5">20sp</dimen>
+    <dimen name="text_longitude_and_latitude_h4">16sp</dimen>
+    <dimen name="margin_layout">16dp</dimen>
+    <dimen name="text_title_city_h6">24sp</dimen>
+    <dimen name="margin_top_settings_maps">36dp</dimen>
+    <dimen name="margin_end_settings_maps">16dp</dimen>
+    <dimen name="margin_top_text_degress_direction">12dp</dimen>
+    <dimen name="margin_top_image_direction">16dp</dimen>
+    <dimen name="margin_bottom_text_location_name">16dp</dimen>
+    <dimen name="margin_bottom_text_lat_long">8dp</dimen>
+    <dimen name="margin_end_latitude">8dp</dimen>
+    <dimen name="margin_start_longitude">8dp</dimen>
+    <dimen name="margin_bottom_image_star_warning">8dp</dimen>
+</resources>
