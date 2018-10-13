@@ -367,6 +367,7 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
     public void showLocationIcon() {
         if (mIvAddress != null) {
             mIvAddress.setVisibility(View.VISIBLE);
+            mIvMaps.setVisibility(View.VISIBLE);
         }
     }
 
