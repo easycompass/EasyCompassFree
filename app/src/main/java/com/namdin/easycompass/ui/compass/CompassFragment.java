@@ -365,7 +365,9 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
 
     @Override
     public void showLocationIcon() {
-        mIvAddress.setVisibility(View.VISIBLE);
+        if (mIvAddress != null) {
+            mIvAddress.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

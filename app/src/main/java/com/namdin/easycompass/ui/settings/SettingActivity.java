@@ -15,15 +15,22 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
 import com.namdin.easycompass.R;
+import com.namdin.easycompass.base.BaseActivity;
+import com.namdin.easycompass.base.BasePresenter;
 
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private LinearLayout llAbout;
     private LinearLayout llRate;
     private LinearLayout llShare;
     private NativeExpressAdView mContainerAd;
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
