@@ -2,6 +2,7 @@ package com.namdin.easycompass.ui.compass;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -27,12 +29,20 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.namdin.easycompass.R;
 import com.namdin.easycompass.base.BaseFragment;
 import com.namdin.easycompass.location.CompassLocationService;
@@ -51,6 +61,7 @@ import com.namdin.easycompass.view.DirectionImage;
 public class CompassFragment extends BaseFragment<CompassPresenter> implements SensorEventListener, CompassView, View.OnClickListener {
 
     public static final String CALIBRATE_MAGENTIC = "CALIBRATE_MAGENTIC";
+    public static final int REQUEST_CHECK_SETTINGS = 100;
 
     private CompassSensorManager mCompassSensorManager;
     private DirectionImage mDirectionImage;
@@ -66,7 +77,6 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
     private FusedLocationProviderClient mFusedLocationClient;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
-    private LocationCallback mLocationCallback;
     private AddressResultReceiver mResultReceiver;
     private String mAddressOutput;
     private String mAddressFull;
@@ -94,10 +104,11 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
         mResultReceiver = new AddressResultReceiver(new Handler());
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         createLocationRequest();
+        locationSetting();
     }
 
     private void createLocationRequest() {
-        mLocationRequest = LocationRequest.create();
+        mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -132,23 +143,25 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
 
         adsUnit();
         getLastLocation();
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    mPresenter.setLocationText(location.getLatitude(), location.getLongitude());
-                    mLastLocation = location;
-                    getAddress();
-                }
 
-            }
-        };
 
         return view;
     }
+
+    LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            if (locationResult == null) {
+                return;
+            }
+            for (Location location : locationResult.getLocations()) {
+                mPresenter.setLocationText(location.getLatitude(), location.getLongitude());
+                mLastLocation = location;
+                getAddress();
+            }
+
+        }
+    };
 
     private void adsUnit() {
         final NativeExpressAdView mAdView = new NativeExpressAdView(getContext());
@@ -416,4 +429,34 @@ public class CompassFragment extends BaseFragment<CompassPresenter> implements S
     private void displayAddressOutput(String currentAddress) {
         mTvCity.setText(currentAddress);
     }
+
+    private void locationSetting() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getActivity()).checkLocationSettings(builder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                resolvable.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException e) {
+                            } catch (ClassCastException e) {
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            break;
+                    }
+
+                }
+            }
+        });
+
+    }
+
+
 }

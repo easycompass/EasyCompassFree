@@ -1,12 +1,16 @@
 package com.namdin.easycompass.ui.compass;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
+import com.google.android.gms.location.LocationSettingsStates;
 import com.namdin.easycompass.R;
 import com.namdin.easycompass.base.BaseActivity;
 import com.namdin.easycompass.base.BasePresenter;
@@ -17,6 +21,7 @@ import com.namdin.easycompass.utils.InterstitialUtils;
 public class CompassActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 200;
+    private static final String TAG = CompassActivity.class.getSimpleName();
     private String[] PERMISSION_NAME = {Manifest.permission.ACCESS_FINE_LOCATION};
     private CompassFragment mCompassFragment;
 
@@ -80,6 +85,25 @@ public class CompassActivity extends BaseActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final LocationSettingsStates states = LocationSettingsStates.fromIntent(data);
+        switch (requestCode) {
+            case CompassFragment.REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        // All required changes were successfully made
+                        Log.d(TAG,"RESULT_OK");
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        // The user was asked to change settings, but chose not to
+                        Log.d(TAG,"RESULT_CANCELED");
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+    }
 
 }
